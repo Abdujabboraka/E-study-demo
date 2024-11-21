@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block data %}
+<style>
+    /* Center the form */
+    .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px 30px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    /* Form title */
+    .login-container h2 {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        color: #333;
+    }
+
+    /* Form inputs */
+    .login-container form input[type="text"],
+    .login-container form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .login-container form input[type="text"]:focus,
+    .login-container form input[type="password"]:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    }
+
+    /* Submit button */
+    .login-container form button {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+    }
+
+    .login-container form button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Link below the form */
+    .login-container .register-link {
+        margin-top: 15px;
+        display: block;
+        font-size: 0.9rem;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .login-container .register-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    <a class="register-link" href="{% url 'register' %}">Don't have an account? Register here</a>
+</div>
+{% endblock data %}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: "Georgia", "Times New Roman", serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .messages li {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .messages li.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .messages li.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .messages li.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: #ffeeba;
+        }
+
+        .messages li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        header, footer {
+            background-color: #343a40;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% include 'components/header.html' %}
+
+    <main>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% block data %}
+        {% endblock data %}
+    </main>
+
+    {% include 'components/footer.html' %}
+
+    <script>
+        // Add fade-out effect for messages
+        document.addEventListener("DOMContentLoaded", function () {
+            const messages = document.querySelectorAll(".messages li");
+            setTimeout(() => {
+                messages.forEach((message) => {
+                    message.style.transition = "opacity 1s";
+                    message.style.opacity = "0";
+                    setTimeout(() => message.remove(), 1000); // Remove after fade-out
+                });
+            }, 5000); // Wait 5 seconds before fading out
+        });
+    </script>
+</body>
+</html>
